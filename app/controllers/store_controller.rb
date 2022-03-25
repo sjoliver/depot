@@ -8,7 +8,5 @@ class StoreController < ApplicationController
       session[:counter] += 1
     end
 
-    puts "INDEX COUNTS", session[:counter]
-
   end
 end
