@@ -28,6 +28,13 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            :cart,
+            partial: 'layouts/cart',
+            locals: { cart: @cart }
+          )
+      end
         format.html { redirect_to store_index_url }
         format.json { render :show, status: :created, location: @line_item }
 
@@ -37,7 +44,6 @@ class LineItemsController < ApplicationController
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # PATCH/PUT /line_items/1 or /line_items/1.json
